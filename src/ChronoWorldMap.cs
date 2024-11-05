@@ -34,4 +34,14 @@ public partial class ChronoWorldMap : Node2D
 			BottomLayer.SetCell(position, 1, new Vector2I(atlasX, atlasY));
 		}
 	}
+	
+	public TileMapLayer GetLayer(int layerIndex)
+	{
+		if (layerIndex == 0)
+		{
+			return TopLayer;
+		}
+
+		return BottomLayer;
+	}
 }

@@ -13,6 +13,7 @@ public partial class Btn_Worldmap : Button
 	{
 		FileDialog fd_WorldMap = new FileDialog();
 		fd_WorldMap.Title = "Open Map .dat file";
+		fd_WorldMap.ModeOverridesTitle = false;
 		fd_WorldMap.FileSelected += OnMapFileSelected;
 		fd_WorldMap.FileMode = FileDialog.FileModeEnum.OpenFile;
 		fd_WorldMap.Access = FileDialog.AccessEnum.Filesystem;

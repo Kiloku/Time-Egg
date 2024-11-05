@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr8ynj1bygf8n"]
+[gd_scene load_steps=4 format=3 uid="uid://cr8ynj1bygf8n"]
 
 [ext_resource type="PackedScene" uid="uid://cqhaxgt4jnt1g" path="res://scenes/MapView.tscn" id="1_lgr85"]
 [ext_resource type="Script" path="res://src/Btn_Worldmap.cs" id="2_6jv07"]
+[ext_resource type="Script" path="res://src/Btn_Worldchip.cs" id="3_orfss"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -25,17 +26,36 @@ layout_mode = 2
 [node name="MapView" parent="PanelContainer/Panel" instance=ExtResource("1_lgr85")]
 layout_mode = 1
 
-[node name="Button" type="Button" parent="PanelContainer/Panel"]
+[node name="Btn_LoadMap" type="Button" parent="PanelContainer/Panel"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.043
-anchor_top = 0.014
-anchor_right = 0.155
-anchor_bottom = 0.062
-offset_left = -0.536003
-offset_top = -0.0720005
-offset_right = -0.559998
-offset_bottom = -0.176003
+offset_left = 49.0
+offset_top = 9.0
+offset_right = 178.0
+offset_bottom = 40.0
 text = "Load Map
 "
 script = ExtResource("2_6jv07")
+
+[node name="Btn_LoadChip0" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 201.0
+offset_top = 9.0
+offset_right = 330.0
+offset_bottom = 40.0
+text = "Load WorldChip Layer 0
+"
+script = ExtResource("3_orfss")
+
+[node name="Btn_LoadChip1" type="Button" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+offset_left = 406.0
+offset_top = 9.0
+offset_right = 597.0
+offset_bottom = 40.0
+text = "Load WorldChip Layer 1
+"
+script = ExtResource("3_orfss")
+Layer = 1
