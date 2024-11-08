@@ -6,6 +6,7 @@ public partial class Btn_Worldchip : Button
 	// Called when the node enters the scene tree for the first time.
 	[Export]
 	public int Layer = 0;
+
 	public override void _Ready()
 	{
 		Pressed += OnButtonPressed;
@@ -28,7 +29,8 @@ public partial class Btn_Worldchip : Button
 
 	private void OnChipFileSelected(string path)
 	{
-		ChronoWorldMap map = GetNode<ChronoWorldMap>(new NodePath("../MapView/ChronoWorldMap"));
+		//TODO: A more reliable way to match the Map instead of NodePath.
+		ChronoWorldMap map = GetNode<ChronoWorldMap>(new NodePath("../MapView/SubViewport/Camera2D/ChronoWorldMap"));
 
 		int newLayer = map.GetLayer(Layer).TileSet.AddSource(TileSetGenerator.GenerateChronoAtlasSource(path));
 

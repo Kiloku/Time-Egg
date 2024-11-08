@@ -19,19 +19,24 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="."]
-handle_input_locally = false
 size = Vector2i(1052, 548)
-size_2d_override_stretch = true
 render_target_update_mode = 4
 
-[node name="ChronoWorldMap" type="Node2D" parent="."]
-script = ExtResource("1_i0q6k")
+[node name="Camera2D" type="Camera2D" parent="SubViewport"]
+anchor_mode = 0
+drag_right_margin = 1.0
+drag_bottom_margin = 1.0
+editor_draw_drag_margin = true
 
-[node name="TopLayer" type="TileMapLayer" parent="ChronoWorldMap"]
+[node name="ChronoWorldMap" type="Node2D" parent="SubViewport/Camera2D" node_paths=PackedStringArray("Camera")]
+script = ExtResource("1_i0q6k")
+Camera = NodePath("..")
+
+[node name="TopLayer" type="TileMapLayer" parent="SubViewport/Camera2D/ChronoWorldMap"]
 z_index = 1
 z_as_relative = false
 tile_set = ExtResource("1_puenk")
 
-[node name="BottomLayer" type="TileMapLayer" parent="ChronoWorldMap"]
+[node name="BottomLayer" type="TileMapLayer" parent="SubViewport/Camera2D/ChronoWorldMap"]
 z_as_relative = false
 tile_set = ExtResource("1_puenk")

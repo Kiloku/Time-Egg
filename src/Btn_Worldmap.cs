@@ -33,7 +33,8 @@ public partial class Btn_Worldmap : Button
 		{
 			data[index] = access.Get8();
 		}
-		ChronoWorldMap map = GetNode<ChronoWorldMap>(new NodePath("../MapView/ChronoWorldMap"));
+		//TODO: A more reliable way to match the Map instead of NodePath.
+		ChronoWorldMap map = GetNode<ChronoWorldMap>(new NodePath("../MapView/SubViewport/Camera2D/ChronoWorldMap"));
 		map.InitMap(data);
 	}
 }
