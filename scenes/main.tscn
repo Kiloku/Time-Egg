@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cr8ynj1bygf8n"]
+[gd_scene load_steps=6 format=3 uid="uid://cr8ynj1bygf8n"]
 
 [ext_resource type="PackedScene" uid="uid://cqhaxgt4jnt1g" path="res://scenes/MapView.tscn" id="1_lgr85"]
 [ext_resource type="Script" path="res://src/Btn_Worldmap.cs" id="2_6jv07"]
 [ext_resource type="Script" path="res://src/Btn_Worldchip.cs" id="3_orfss"]
+[ext_resource type="Script" path="res://src/TileInfoLabel.cs" id="4_b6q66"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_k2d4y"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -25,6 +28,15 @@ layout_mode = 2
 
 [node name="MapView" parent="PanelContainer/Panel" instance=ExtResource("1_lgr85")]
 layout_mode = 1
+anchors_preset = 15
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 50.0
+offset_right = -50.0
+offset_bottom = -50.0
 
 [node name="Btn_LoadMap" type="Button" parent="PanelContainer/Panel"]
 layout_mode = 1
@@ -59,3 +71,17 @@ text = "Load WorldChip Layer 1
 "
 script = ExtResource("3_orfss")
 Layer = 1
+
+[node name="Lbl_TileInfo" type="Label" parent="PanelContainer/Panel" node_paths=PackedStringArray("MapView")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_right = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "Tile Info"
+label_settings = SubResource("LabelSettings_k2d4y")
+script = ExtResource("4_b6q66")
+MapView = NodePath("../MapView")

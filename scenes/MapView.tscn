@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cqhaxgt4jnt1g"]
+[gd_scene load_steps=4 format=3 uid="uid://cqhaxgt4jnt1g"]
 
 [ext_resource type="Script" path="res://src/ChronoWorldMap.cs" id="1_i0q6k"]
 [ext_resource type="TileSet" uid="uid://de2huhmktckw7" path="res://basetileset.tres" id="1_puenk"]
+[ext_resource type="Texture2D" uid="uid://bn4peg7saywmd" path="res://TileCursor.png" id="3_adohq"]
 
 [node name="SubViewportContainer" type="SubViewportContainer"]
 clip_contents = true
@@ -19,6 +20,7 @@ grow_vertical = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
 size = Vector2i(1052, 548)
 render_target_update_mode = 4
 
@@ -28,9 +30,10 @@ drag_right_margin = 1.0
 drag_bottom_margin = 1.0
 editor_draw_drag_margin = true
 
-[node name="ChronoWorldMap" type="Node2D" parent="SubViewport/Camera2D" node_paths=PackedStringArray("Camera")]
+[node name="ChronoWorldMap" type="Node2D" parent="SubViewport/Camera2D" node_paths=PackedStringArray("Camera", "TileCursorSprite")]
 script = ExtResource("1_i0q6k")
 Camera = NodePath("..")
+TileCursorSprite = NodePath("Sprite2D")
 
 [node name="TopLayer" type="TileMapLayer" parent="SubViewport/Camera2D/ChronoWorldMap"]
 z_index = 1
@@ -40,3 +43,7 @@ tile_set = ExtResource("1_puenk")
 [node name="BottomLayer" type="TileMapLayer" parent="SubViewport/Camera2D/ChronoWorldMap"]
 z_as_relative = false
 tile_set = ExtResource("1_puenk")
+
+[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Camera2D/ChronoWorldMap"]
+z_index = 3
+texture = ExtResource("3_adohq")
