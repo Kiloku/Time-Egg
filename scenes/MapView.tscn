@@ -30,10 +30,11 @@ drag_right_margin = 1.0
 drag_bottom_margin = 1.0
 editor_draw_drag_margin = true
 
-[node name="ChronoWorldMap" type="Node2D" parent="SubViewport/Camera2D" node_paths=PackedStringArray("Camera", "TileCursorSprite")]
+[node name="ChronoWorldMap" type="Node2D" parent="SubViewport/Camera2D" node_paths=PackedStringArray("Camera", "TileCursorSprite", "SelectedTileSprite")]
 script = ExtResource("1_i0q6k")
 Camera = NodePath("..")
-TileCursorSprite = NodePath("Sprite2D")
+TileCursorSprite = NodePath("CursorSprite")
+SelectedTileSprite = NodePath("SelectedSprite")
 
 [node name="TopLayer" type="TileMapLayer" parent="SubViewport/Camera2D/ChronoWorldMap"]
 z_index = 1
@@ -44,6 +45,12 @@ tile_set = ExtResource("1_puenk")
 z_as_relative = false
 tile_set = ExtResource("1_puenk")
 
-[node name="Sprite2D" type="Sprite2D" parent="SubViewport/Camera2D/ChronoWorldMap"]
+[node name="CursorSprite" type="Sprite2D" parent="SubViewport/Camera2D/ChronoWorldMap"]
+z_index = 4
+texture = ExtResource("3_adohq")
+
+[node name="SelectedSprite" type="Sprite2D" parent="SubViewport/Camera2D/ChronoWorldMap"]
+modulate = Color(0, 0.85, 1, 1)
 z_index = 3
+position = Vector2(-50, 0)
 texture = ExtResource("3_adohq")

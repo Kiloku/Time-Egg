@@ -35,6 +35,7 @@ public partial class ChronoWorldMap : Node2D
 	
 	[Export] public Camera2D Camera;
 	[Export] public Sprite2D TileCursorSprite;
+	[Export] public Sprite2D SelectedTileSprite;
 	private Vector2 CameraDragStart;
 	
 	public DetailedTileData SelectedTile;
@@ -76,6 +77,7 @@ public partial class ChronoWorldMap : Node2D
 					{
 						SelectedTile = hovered;
 						EmitSignal(SignalName.TileClicked, SelectedTile);
+						SelectedTileSprite.Position = BottomLayer.MapToLocal(SelectedTile.Position);
 					}
 				}
 			}
