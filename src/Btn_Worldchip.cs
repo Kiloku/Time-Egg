@@ -31,13 +31,13 @@ public partial class Btn_Worldchip : Button
 	{
 		//TODO: A more reliable way to match the Map instead of NodePath.
 		ChronoWorldMap map = GetNode<ChronoWorldMap>(new NodePath("../MapView/SubViewport/Camera2D/ChronoWorldMap"));
+		
+		int newLayer = map.GetLayerNode((MapLayer)Layer).TileSet.AddSource(TileSetGenerator.GenerateChronoAtlasSource(path));
 
-		int newLayer = map.GetLayer(Layer).TileSet.AddSource(TileSetGenerator.GenerateChronoAtlasSource(path));
-
-		foreach (var cellPos in map.GetLayer(Layer).GetUsedCells())
+		foreach (var cellPos in map.GetLayerNode((MapLayer)Layer).GetUsedCells())
 		{
-			Vector2I atlasCoords = map.GetLayer(Layer).GetCellAtlasCoords(cellPos);
-			map.GetLayer(Layer).SetCell(cellPos, newLayer, atlasCoords);
+			Vector2I atlasCoords = map.GetLayerNode((MapLayer)Layer).GetCellAtlasCoords(cellPos);
+			map.GetLayerNode((MapLayer)Layer).SetCell(cellPos, newLayer, atlasCoords);
 		}
 	}
 

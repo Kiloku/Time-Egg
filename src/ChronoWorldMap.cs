@@ -1,30 +1,7 @@
 using Godot;
 using System;
 
-public partial class DetailedTileData : GodotObject
-{
-	public Vector2I Position;
-	public TileData BottomLayerData;
-	public TileData TopLayerData;
 
-	public Vector2I BottomLayerInAtlas;
-	public Vector2I TopLayerInAtlas;
-
-	public DetailedTileData()
-	{
-		Position = default;
-		BottomLayerData = null;
-		TopLayerData = null;
-		BottomLayerInAtlas =  new Vector2I(-1, -1);
-		TopLayerInAtlas = new Vector2I(-1, -1);
-	}
-
-	public bool HasBottomLayer => BottomLayerData != null;
-
-	public bool HasTopLayer => TopLayerData != null;
-	
-	public bool Valid => HasBottomLayer || HasTopLayer;
-}
 public partial class ChronoWorldMap : Node2D
 {
 	public TileMapLayer TopLayer;
@@ -38,10 +15,10 @@ public partial class ChronoWorldMap : Node2D
 	[Export] public Sprite2D SelectedTileSprite;
 	private Vector2 CameraDragStart;
 	
-	public DetailedTileData SelectedTile;
+	public DetailedTileInfo SelectedTile;
 	
 	[Signal]
-	public delegate void TileClickedEventHandler(DetailedTileData tile);
+	public delegate void TileClickedEventHandler(DetailedTileInfo tile);
 	public override void _Ready()
 	{
 		TopLayer = GetNode<TileMapLayer>("TopLayer");
@@ -71,7 +48,7 @@ public partial class ChronoWorldMap : Node2D
 			{
 				if (mouseButtonEvent.IsPressed())
 				{
-					DetailedTileData hovered = GetHoveredTile();
+					DetailedTileInfo hovered = GetHoveredTile();
 
 					if (hovered.Valid)
 					{
@@ -100,39 +77,27 @@ public partial class ChronoWorldMap : Node2D
 	{
 		for (int i = 0; i < mapData.Length/2; i++)
 		{
-			int y = i/96;
 			int x = i%96;
+			int y = i/96;
 			Vector2I position = new Vector2I(x, y);
 			
-			int atlasX = mapData[i] % 16;
-			int atlasY = mapData[i] / 16;
-
-			TopLayer.SetCell(position, 0, new Vector2I(atlasX, atlasY));
-			
-			atlasX = mapData[i+mapData.Length/2] % 16;
-			atlasY = mapData[i+mapData.Length/2] / 16;
-			
-			BottomLayer.SetCell(position, 1, new Vector2I(atlasX, atlasY));
+			TopLayer.SetCell(position, 0, DetailedTileInfo.ByteToAtlasPosition(mapData[i]));
+			BottomLayer.SetCell(position, 1, DetailedTileInfo.ByteToAtlasPosition(mapData[i+mapData.Length/2]));
 		}
 	}
 	
-	public TileMapLayer GetLayer(int layerIndex)
+	public TileMapLayer GetLayerNode(MapLayer layer)
 	{
-		if (layerIndex == 0)
-		{
-			return TopLayer;
-		}
-
-		return BottomLayer;
+		return layer == MapLayer.Bottom ? BottomLayer : TopLayer;
 	}
 
 	public Vector2 GetMousePositionOnMap()
 	{
 		return GetViewport().GetMousePosition() + Camera.Offset;
 	}
-	public DetailedTileData GetHoveredTile()
+	public DetailedTileInfo GetHoveredTile()
 	{
-		DetailedTileData result = new DetailedTileData();
+		DetailedTileInfo result = new DetailedTileInfo();
 		result.Position = BottomLayer.LocalToMap(GetMousePositionOnMap());
 		result.BottomLayerData = BottomLayer.GetCellTileData(result.Position);
 		result.TopLayerData = TopLayer.GetCellTileData(result.Position);

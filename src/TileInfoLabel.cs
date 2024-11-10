@@ -20,8 +20,8 @@ public partial class TileInfoLabel : Label
 			{
 				((ChronoWorldMap)node).TileClicked += (tile) =>
 				{
-					string bottomHex = HexRepresentation(tile.BottomLayerInAtlas.X + (tile.BottomLayerInAtlas.Y * 16));
-					string topHex = HexRepresentation(tile.TopLayerInAtlas.X + (tile.TopLayerInAtlas.Y * 16));
+					string bottomHex = HexRepresentation(tile.GetByteAtLayer(MapLayer.Bottom));
+					string topHex = HexRepresentation(tile.GetByteAtLayer(MapLayer.Top));
 					SetText("Pos: " + tile.Position.ToString() + 
 					        "\nBottom: " + (tile.HasBottomLayer ? bottomHex : "None") + 
 							" | Top: " + (tile.HasTopLayer ? topHex : "None"));
@@ -30,15 +30,10 @@ public partial class TileInfoLabel : Label
 		}
 	}
 	
-	public string HexRepresentation(int value)
+	public static string HexRepresentation(byte value)
 	{
-		if (value < 0 || value > 255)
-		{
-			return "NaN";
-		}
-
 		byte[] arr = new byte[1];
-		arr[0] = (byte)value;
+		arr[0] = value;
 		return Convert.ToHexString(arr);
 	}
 }
